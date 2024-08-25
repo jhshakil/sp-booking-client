@@ -1,7 +1,9 @@
+import Hero from "@/components/web/Hero";
+
 const Home = () => {
   return (
-    <div className="min-h-screen">
-      <p>hero</p>
+    <div>
+      <Hero />
     </div>
   );
 };
