@@ -9,7 +9,7 @@ const Hero = () => {
         alt="hero-banner"
       />
       <div className="absolute bottom-0 w-full">
-        <div className="max-w-full md:max-w-[550px] lg:max-w-[800px] mx-auto flex flex-col items-center justify-center h-full relative z-10 text-black bg-white px-4 md:px-8 py-3 md:py-11 rounded-t-xl">
+        <div className="max-w-full md:max-w-[550px] lg:max-w-[800px] mx-auto flex flex-col items-center justify-center h-full relative z-10 text-black bg-white px-4 md:px-8 py-3 md:py-11 rounded-t-xl bg-opacity-90">
           <h1 className="text-[40px] lg:text-[60px] font-bold text-center leading-snug">
             Find Next Game To Play
           </h1>
