@@ -1,6 +1,6 @@
 const BookingSteps = () => {
   return (
-    <div className="container py-11">
+    <section className="container py-11">
       <h2 className="text-[35px] md:text-[45px] font-medium leading-tight text-center underline">
         How to Book Place
       </h2>
@@ -162,7 +162,7 @@ const BookingSteps = () => {
           </div>
         </li>
       </ol>
-    </div>
+    </section>
   );
 };
 
