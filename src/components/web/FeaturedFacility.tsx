@@ -31,7 +31,7 @@ const FeaturedFacility = () => {
   return (
     <section className="container py-11">
       <div className="flex justify-between items-end gap-5">
-        <h2 className="text-[35px] md:text-[45px] font-medium leading-tight">
+        <h2 className="text-[35px] md:text-[45px] font-medium leading-tight underline">
           Featured Facility
         </h2>
         <Button>See More</Button>
