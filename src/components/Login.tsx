@@ -23,8 +23,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Separator } from "./ui/separator";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { verifyToken } from "@/lib/verifyToken";
+import { setUser, TUser } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/hooks";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -34,6 +38,11 @@ const FormSchema = z.object({
 });
 
 export function Login() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const [login] = useLoginMutation();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -42,9 +51,20 @@ export function Login() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
-    toast("login");
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    const toastId = toast.loading("Registration in");
+
+    try {
+      const res = await login(data).unwrap();
+
+      const user = verifyToken(res.token) as TUser;
+      dispatch(setUser({ user: user, token: res.token }));
+      toast.success("Logged in", { id: toastId, duration: 2000 });
+
+      navigate(`/`);
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId, duration: 2000 });
+    }
   }
 
   return (
@@ -93,7 +113,7 @@ export function Login() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full !mt-6">
                 Login
               </Button>
             </form>

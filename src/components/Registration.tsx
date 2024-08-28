@@ -73,7 +73,6 @@ export function Registration() {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
     const toastId = toast.loading("Registration in");
 
     try {
@@ -88,8 +87,8 @@ export function Registration() {
         const res = await login(userInfo).unwrap();
 
         const user = verifyToken(res.token) as TUser;
-        dispatch(setUser({ user: user, token: res.data.token }));
-        toast.success("Logged in", { id: toastId, duration: 2000 });
+        dispatch(setUser({ user: user, token: res.token }));
+        toast.success("Registration in", { id: toastId, duration: 2000 });
 
         navigate(`/`);
       }
@@ -234,7 +233,7 @@ export function Registration() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full !mt-6">
                 Register
               </Button>
             </form>
