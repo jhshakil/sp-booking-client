@@ -78,6 +78,8 @@ export function Registration() {
     try {
       const res = await registration(data).unwrap();
 
+      console.log(res);
+
       if (res.success === true) {
         const userInfo = {
           email: data.email,
@@ -92,8 +94,12 @@ export function Registration() {
 
         navigate(`/`);
       }
-    } catch (err) {
-      toast.error("Something went wrong", { id: toastId, duration: 2000 });
+    } catch (err: any) {
+      if (err?.data?.message === "already exist") {
+        toast.error("User already exist", { id: toastId, duration: 2000 });
+      } else {
+        toast.error("Something went wrong", { id: toastId, duration: 2000 });
+      }
     }
   }
 

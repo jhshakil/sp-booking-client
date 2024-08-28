@@ -17,8 +17,6 @@ const Header = () => {
     user = verifyToken(token) as TUser;
   }
 
-  console.log(token);
-
   return (
     <div className="container px-3 py-4 flex justify-between items-center gap-6 lg:gap-11">
       {/* logo  */}
