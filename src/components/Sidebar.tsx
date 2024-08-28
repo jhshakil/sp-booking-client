@@ -1,11 +1,12 @@
 import { sidebarItemsGenerator } from "@/lib/sidebarNavGenerator";
 import { verifyToken } from "@/lib/verifyToken";
-import { TUser, useCurrentToken } from "@/redux/features/auth/authSlice";
+import { useCurrentToken } from "@/redux/features/auth/authSlice";
 import { useAppSelector } from "@/redux/hooks";
 import { adminPaths } from "@/routes/admin.routes";
 import { userPaths } from "@/routes/user.routes";
 import { Button } from "./ui/button";
 import { useLocation } from "react-router-dom";
+import { TUser } from "@/types/user.types";
 
 const Sidebar = () => {
   const location = useLocation();

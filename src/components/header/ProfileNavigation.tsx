@@ -35,11 +35,11 @@ const ProfileNavigation = ({ user }: Props) => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel className="uppercase">{user.role}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link to={`/${user.role}/Profile`}>Profile</Link>
+            <Link to={`/${user.role}/profile`}>Profile</Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Link to={`/${user.role}/dashboard`}>Dashboard</Link>

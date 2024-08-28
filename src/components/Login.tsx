@@ -27,8 +27,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Separator } from "./ui/separator";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { verifyToken } from "@/lib/verifyToken";
-import { setUser, TUser } from "@/redux/features/auth/authSlice";
+import { setUser } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks";
+import { TUser } from "@/types/user.types";
 
 const FormSchema = z.object({
   email: z.string().email(),

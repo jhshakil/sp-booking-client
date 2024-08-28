@@ -5,14 +5,13 @@ import Navigation from "./Navigation";
 import ProfileNavigation from "./ProfileNavigation";
 import MobileNavigation from "./MobileNavigation";
 import { useAppSelector } from "@/redux/hooks";
-import { TUser, useCurrentToken } from "@/redux/features/auth/authSlice";
+import { useCurrentToken } from "@/redux/features/auth/authSlice";
 import { verifyToken } from "@/lib/verifyToken";
+import { TUser } from "@/types/user.types";
 
 const Header = () => {
   const token = useAppSelector(useCurrentToken);
-
-  let user;
-
+  let user = null;
   if (token) {
     user = verifyToken(token) as TUser;
   }

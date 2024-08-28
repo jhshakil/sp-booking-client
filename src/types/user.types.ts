@@ -1,5 +1,20 @@
 import { ReactNode } from "react";
 
+export type TUser = {
+  email: string;
+  role: string;
+  iat: number;
+  exp: number;
+};
+
+export type TUserData = {
+  email: string;
+  role: string;
+  name: string;
+  phone: string;
+  address: string;
+};
+
 export type TRoute = {
   path: string;
   element: ReactNode;

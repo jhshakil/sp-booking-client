@@ -79,6 +79,6 @@ export const baseApi = createApi({
   // baseQuery: fetchBaseQuery({
   //   baseUrl: import.meta.env.VITE_BASE_URL,
   // }),
-  tagTypes: ["product"],
+  tagTypes: ["user"],
   endpoints: () => ({}),
 });
