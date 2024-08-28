@@ -12,42 +12,68 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+
 import { Textarea } from "../ui/textarea";
-import { TUserData } from "@/types/user.types";
-import { useUpdateUserMutation } from "@/redux/features/user/userApi";
+import { useRegistrationMutation } from "@/redux/features/auth/authApi";
 
-type Props = {
-  user: TUserData;
-};
+const FormSchema = z
+  .object({
+    name: z.string(),
+    email: z.string().email(),
+    phone: z.string(),
+    password: z.string().min(8, {
+      message: "Password must be at least 8 characters.",
+    }),
+    confirm_password: z.string().min(8, {
+      message: "Password must be at least 8 characters.",
+    }),
+    role: z.string(),
+    address: z.string(),
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    message: "Passwords don't match",
+    path: ["confirm_password"],
+  });
 
-const FormSchema = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  phone: z.string(),
-  role: z.string(),
-  address: z.string(),
-});
-
-export function ProfileForm({ user }: Props) {
-  const [updateUser] = useUpdateUserMutation();
-
+export function CreateAdmin() {
+  const [registration] = useRegistrationMutation();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      name: user.name ?? "",
-      email: user.email ?? "",
-      phone: user.phone ?? "",
-      role: user.role ?? "user",
-      address: user.address ?? "",
+      name: "",
+      email: "",
+      phone: "",
+      password: "",
+      confirm_password: "",
+      role: "admin",
+      address: "",
     },
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    await updateUser(data).unwrap();
+    const toastId = toast.loading("Creating Admin");
+
+    try {
+      const res = await registration(data).unwrap();
+
+      if (res.success === true) {
+        toast.success("Admin Create Successful", {
+          id: toastId,
+          duration: 2000,
+        });
+      }
+    } catch (err: any) {
+      if (err?.data?.message === "already exist") {
+        toast.error("User already exist", { id: toastId, duration: 2000 });
+      } else {
+        toast.error("Something went wrong", { id: toastId, duration: 2000 });
+      }
+    }
   }
 
   return (
-    <div className="flex justify-center items-center ">
+    <div className="my-10 flex justify-center items-center ">
       <div className="w-[50vw]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
@@ -107,6 +133,42 @@ export function ProfileForm({ user }: Props) {
             />
             <FormField
               control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Please enter your password"
+                      autoCapitalize="none"
+                      autoCorrect="off"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirm_password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Please enter your password"
+                      autoCapitalize="none"
+                      autoCorrect="off"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="role"
               render={({ field }) => (
                 <FormItem>
@@ -142,7 +204,7 @@ export function ProfileForm({ user }: Props) {
               )}
             />
             <Button type="submit" className="!mt-6">
-              Update Profile
+              Create Admin
             </Button>
           </form>
         </Form>

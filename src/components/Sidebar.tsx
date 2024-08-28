@@ -4,7 +4,6 @@ import { useCurrentToken } from "@/redux/features/auth/authSlice";
 import { useAppSelector } from "@/redux/hooks";
 import { adminPaths } from "@/routes/admin.routes";
 import { userPaths } from "@/routes/user.routes";
-import { Button } from "./ui/button";
 import { useLocation } from "react-router-dom";
 import { TUser } from "@/types/user.types";
 
@@ -25,10 +24,10 @@ const Sidebar = () => {
 
   switch ((user as TUser)!.role) {
     case "admin":
-      sidebarItems = sidebarItemsGenerator(adminPaths, "admin");
+      sidebarItems = sidebarItemsGenerator(adminPaths, "admin", currentPath);
       break;
     case "user":
-      sidebarItems = sidebarItemsGenerator(userPaths, "user");
+      sidebarItems = sidebarItemsGenerator(userPaths, "user", currentPath);
       break;
 
     default:
@@ -37,14 +36,7 @@ const Sidebar = () => {
   return (
     <div className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2">
       <nav className="grid gap-2 px-2">
-        {sidebarItems?.map((link) => (
-          <Button
-            variant={currentPath === link?.path ? "default" : "secondary"}
-            key={link?.key}
-          >
-            {link?.label}
-          </Button>
-        ))}
+        {sidebarItems?.map((link) => link?.label)}
       </nav>
     </div>
   );

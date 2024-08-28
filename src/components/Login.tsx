@@ -1,5 +1,3 @@
-"use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -53,14 +51,14 @@ export function Login() {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const toastId = toast.loading("Registration in");
+    const toastId = toast.loading("Logged in");
 
     try {
       const res = await login(data).unwrap();
 
       const user = verifyToken(res.token) as TUser;
       dispatch(setUser({ user: user, token: res.token }));
-      toast.success("Logged in", { id: toastId, duration: 2000 });
+      toast.success("Logged Successful", { id: toastId, duration: 2000 });
 
       navigate(`/`);
     } catch (err) {
