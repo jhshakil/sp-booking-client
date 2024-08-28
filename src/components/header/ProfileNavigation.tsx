@@ -11,9 +11,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Link } from "react-router-dom";
 import { CircleUserRound } from "lucide-react";
 import { useAppDispatch } from "@/redux/hooks";
-import { logout } from "@/redux/features/auth/authSlice";
+import { logout, TUser } from "@/redux/features/auth/authSlice";
 
-const ProfileNavigation = () => {
+type Props = {
+  user: TUser;
+};
+
+const ProfileNavigation = ({ user }: Props) => {
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
@@ -35,7 +39,10 @@ const ProfileNavigation = () => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link to="/profile">Profile</Link>
+            <Link to={`/${user.role}/Profile`}>Profile</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link to={`/${user.role}/dashboard`}>Dashboard</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

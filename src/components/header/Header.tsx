@@ -31,7 +31,7 @@ const Header = () => {
       <div className="flex gap-4 items-center">
         {user?.email ? (
           <div className="flex items-center gap-4">
-            <ProfileNavigation />
+            <ProfileNavigation user={user} />
             <div className="md:hidden">
               <MobileNavigation />
             </div>
