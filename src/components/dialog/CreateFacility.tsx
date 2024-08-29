@@ -26,6 +26,8 @@ import { UploadCloud } from "lucide-react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { imageUploadDB } from "@/lib/firebaseConfig";
 import { v4 } from "uuid";
+import { useCreateFacilityMutation } from "@/redux/features/facility/facilityApi";
+import { useState } from "react";
 
 const FormSchema = z.object({
   name: z.string(),
@@ -36,6 +38,9 @@ const FormSchema = z.object({
 });
 
 export function CreateFacility() {
+  const [open, setOpen] = useState(false);
+
+  const [createFacility] = useCreateFacilityMutation();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -60,12 +65,16 @@ export function CreateFacility() {
         await getDownloadURL(imgData.ref).then((val) => (data.image = val));
       });
     }
-    console.log(data);
+    const res = await createFacility(data);
+
+    if (res?.data) {
+      setOpen(false);
+    }
   }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild onClick={() => setOpen(true)}>
         <Button>Create Facility</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
