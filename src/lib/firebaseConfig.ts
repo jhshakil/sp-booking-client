@@ -4,12 +4,12 @@ import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCjYjkre7Puddstq-XksYR-L57zvg_gFEU",
-  authDomain: "sp-booking-image.firebaseapp.com",
-  projectId: "sp-booking-image",
-  storageBucket: "sp-booking-image.appspot.com",
-  messagingSenderId: "1077386773267",
-  appId: "1:1077386773267:web:895d78a49a04a0afe190e6",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SEND_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
