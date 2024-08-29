@@ -29,7 +29,6 @@ export type TUserPath = {
 export type TSidebarItem =
   | {
       key: string;
-      path: string;
       label: ReactNode;
     }
   | undefined;

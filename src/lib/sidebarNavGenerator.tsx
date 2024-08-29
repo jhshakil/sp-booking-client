@@ -11,7 +11,6 @@ export const sidebarItemsGenerator = (
     if (item.path && item.name) {
       acc.push({
         key: item.name,
-        path: item.path,
         label: (
           <NavLink to={`/${role}/${item.path}`}>
             <Button

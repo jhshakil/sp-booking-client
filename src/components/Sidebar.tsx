@@ -6,6 +6,7 @@ import { adminPaths } from "@/routes/admin.routes";
 import { userPaths } from "@/routes/user.routes";
 import { useLocation } from "react-router-dom";
 import { TUser } from "@/types/user.types";
+import React from "react";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -36,7 +37,9 @@ const Sidebar = () => {
   return (
     <div className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2">
       <nav className="grid gap-2 px-2">
-        {sidebarItems?.map((link) => link?.label)}
+        {sidebarItems?.map((link) => (
+          <React.Fragment key={link?.key}>{link?.label}</React.Fragment>
+        ))}
       </nav>
     </div>
   );
