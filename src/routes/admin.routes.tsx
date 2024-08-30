@@ -1,8 +1,8 @@
-import { CreateAdmin } from "@/components/dashboard/CreateAdmin";
-import FacilityControl from "@/components/dashboard/FacilityControl";
-import Profile from "@/components/dashboard/Profile";
-import UserControl from "@/components/dashboard/UserControl";
+import CreateAdmin from "@/pages/CreateAdmin";
 import Dashboard from "@/pages/Dashboard";
+import FacilityControl from "@/pages/FacilityControl";
+import Profile from "@/pages/Profile";
+import UserControl from "@/pages/UserControl";
 
 export const adminPaths = [
   {

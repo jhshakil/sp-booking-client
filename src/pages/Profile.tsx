@@ -1,5 +1,5 @@
+import { ProfileForm } from "@/components/dashboard/ProfileForm";
 import { useGetUserQuery } from "@/redux/features/user/userApi";
-import { ProfileForm } from "./ProfileForm";
 
 const Profile = () => {
   let userData = null;

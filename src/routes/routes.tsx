@@ -8,6 +8,7 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import { routeGenerator } from "@/lib/utils";
 import { adminPaths } from "./admin.routes";
 import { userPaths } from "./user.routes";
+import FacilityPage from "@/pages/FacilityPage";
 
 const routes = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const routes = createBrowserRouter([
       {
         index: true,
         element: <App />,
+      },
+      {
+        path: "/facility",
+        element: <FacilityPage />,
       },
       {
         path: "/login",

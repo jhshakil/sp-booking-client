@@ -14,8 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
-import { Textarea } from "../ui/textarea";
 import { useRegistrationMutation } from "@/redux/features/auth/authApi";
+import { Textarea } from "@/components/ui/textarea";
 
 const FormSchema = z
   .object({
@@ -36,7 +36,7 @@ const FormSchema = z
     path: ["confirm_password"],
   });
 
-export function CreateAdmin() {
+export default function CreateAdmin() {
   const [registration] = useRegistrationMutation();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

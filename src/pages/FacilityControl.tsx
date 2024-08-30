@@ -11,13 +11,13 @@ import {
   useDeleteFacilityMutation,
   useGetFacilitiesQuery,
 } from "@/redux/features/facility/facilityApi";
-import { Button } from "../ui/button";
 import { Trash } from "lucide-react";
 import { TFacility } from "@/types/facility.types";
-import { CreateFacility } from "../dialog/CreateFacility";
-import { UpdateFacility } from "../dialog/UpdateFacility";
 import { useState } from "react";
-import DeletePopup from "../dialog/DeletePopup";
+import { CreateFacility } from "@/components/dialog/CreateFacility";
+import { UpdateFacility } from "@/components/dialog/UpdateFacility";
+import { Button } from "@/components/ui/button";
+import DeletePopup from "@/components/dialog/DeletePopup";
 
 export default function FacilityControl() {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);

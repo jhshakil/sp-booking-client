@@ -1,5 +1,5 @@
-import Profile from "@/components/dashboard/Profile";
 import Dashboard from "@/pages/Dashboard";
+import Profile from "@/pages/Profile";
 
 export const userPaths = [
   {
