@@ -1,6 +1,6 @@
 import { baseApi } from "@/redux/api/baseApi";
 
-const productApi = baseApi.injectEndpoints({
+const facilityApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getFacilities: builder.query({
       query: (data) => {
@@ -70,4 +70,4 @@ export const {
   useGetFacilitiesQuery,
   useUpdateFacilityMutation,
   useDeleteFacilityMutation,
-} = productApi;
+} = facilityApi;

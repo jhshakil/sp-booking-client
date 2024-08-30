@@ -42,6 +42,14 @@ const ProfileNavigation = ({ user }: Props) => {
           <DropdownMenuItem asChild>
             <Link to={`/${user.role}/profile`}>Profile</Link>
           </DropdownMenuItem>
+          {user.role === "user" ? (
+            <DropdownMenuItem asChild>
+              <Link to={`/${user.role}/create-booking`}>Booking Slot</Link>
+            </DropdownMenuItem>
+          ) : (
+            ""
+          )}
+
           <DropdownMenuItem asChild>
             <Link to={`/${user.role}/dashboard`}>Dashboard</Link>
           </DropdownMenuItem>

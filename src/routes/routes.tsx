@@ -23,6 +23,7 @@ const routes = createBrowserRouter([
         path: "/facility",
         element: <FacilityPage />,
       },
+
       {
         path: "/login",
         element: <Login />,

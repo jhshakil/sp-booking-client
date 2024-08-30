@@ -26,8 +26,8 @@ import { UploadCloud } from "lucide-react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { imageUploadDB } from "@/lib/firebaseConfig";
 import { v4 } from "uuid";
-import { useCreateFacilityMutation } from "@/redux/features/facility/facilityApi";
 import { useState } from "react";
+import { useCreateFacilityMutation } from "@/redux/features/facility/facilityApi";
 
 const FormSchema = z.object({
   name: z.string(),

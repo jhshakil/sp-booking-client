@@ -25,12 +25,7 @@ const Navigation = () => {
           >
             <Link to="/facility">Facility</Link>
           </NavigationMenuLink>
-          <NavigationMenuLink
-            className={cn(navigationMenuTriggerStyle(), "text-md")}
-            asChild
-          >
-            <Link to="/booking">Booking</Link>
-          </NavigationMenuLink>
+
           <NavigationMenuLink
             className={cn(navigationMenuTriggerStyle(), "text-md")}
             asChild

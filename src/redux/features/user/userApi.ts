@@ -1,7 +1,7 @@
 import { baseApi } from "@/redux/api/baseApi";
 import { RootState, store } from "@/redux/store";
 
-const authApi = baseApi.injectEndpoints({
+const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: (data) => {
@@ -55,4 +55,4 @@ const authApi = baseApi.injectEndpoints({
 });
 
 export const { useGetUsersQuery, useGetUserQuery, useUpdateUserMutation } =
-  authApi;
+  userApi;
