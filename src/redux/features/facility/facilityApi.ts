@@ -44,14 +44,14 @@ const productApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["facility"],
     }),
-    // updateProduct: builder.mutation({
-    //   query: (data) => ({
-    //     url: `/product/${data._id}`,
-    //     method: "PATCH",
-    //     body: data,
-    //   }),
-    //   invalidatesTags: ["product"],
-    // }),
+    updateFacility: builder.mutation({
+      query: (data) => ({
+        url: `/facility/${data._id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["facility"],
+    }),
     // deleteProduct: builder.mutation({
     //   query: (data) => ({
     //     url: `/product/${data._id}`,
@@ -62,4 +62,8 @@ const productApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateFacilityMutation, useGetFacilitiesQuery } = productApi;
+export const {
+  useCreateFacilityMutation,
+  useGetFacilitiesQuery,
+  useUpdateFacilityMutation,
+} = productApi;
