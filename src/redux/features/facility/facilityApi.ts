@@ -52,13 +52,13 @@ const productApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["facility"],
     }),
-    // deleteProduct: builder.mutation({
-    //   query: (data) => ({
-    //     url: `/product/${data._id}`,
-    //     method: "DELETE",
-    //   }),
-    //   invalidatesTags: ["product"],
-    // }),
+    deleteFacility: builder.mutation({
+      query: (data) => ({
+        url: `/facility/${data._id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["facility"],
+    }),
   }),
 });
 
@@ -66,4 +66,5 @@ export const {
   useCreateFacilityMutation,
   useGetFacilitiesQuery,
   useUpdateFacilityMutation,
+  useDeleteFacilityMutation,
 } = productApi;

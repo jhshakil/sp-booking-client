@@ -7,23 +7,36 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useGetFacilitiesQuery } from "@/redux/features/facility/facilityApi";
+import {
+  useDeleteFacilityMutation,
+  useGetFacilitiesQuery,
+} from "@/redux/features/facility/facilityApi";
 import { Button } from "../ui/button";
 import { Trash } from "lucide-react";
 import { TFacility } from "@/types/facility.types";
 import { CreateFacility } from "../dialog/CreateFacility";
 import { UpdateFacility } from "../dialog/UpdateFacility";
+import { useState } from "react";
+import DeletePopup from "../dialog/DeletePopup";
 
 export default function FacilityControl() {
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [selectedFacility, setSelectedFacility] = useState<TFacility>();
   const {
     data: facilityData,
     isLoading,
     error,
   } = useGetFacilitiesQuery(undefined);
 
+  const [deleteFacility] = useDeleteFacilityMutation();
+
   if (isLoading) return <p>Loading ...</p>;
 
   if (error) return <p>Something went wrong</p>;
+
+  const deleteProductData = () => {
+    deleteFacility(selectedFacility);
+  };
 
   return (
     <div className="px-8 py-12">
@@ -66,7 +79,8 @@ export default function FacilityControl() {
                     size="icon"
                     className="border-none hover:bg-background relative"
                     onClick={() => {
-                      // setOpenDeleteDialog(true);
+                      setSelectedFacility(facility);
+                      setOpenDeleteDialog(true);
                     }}
                   >
                     <Trash className="h-6 w-6" />
@@ -76,6 +90,15 @@ export default function FacilityControl() {
             ))}
           </TableBody>
         </Table>
+        {selectedFacility && (
+          <>
+            <DeletePopup
+              open={openDeleteDialog}
+              closeDialog={() => setOpenDeleteDialog(false)}
+              submitData={() => deleteProductData()}
+            />
+          </>
+        )}
       </div>
     </div>
   );
