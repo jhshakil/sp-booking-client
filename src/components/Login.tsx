@@ -36,7 +36,7 @@ const FormSchema = z.object({
   }),
 });
 
-export function Login() {
+export default function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 

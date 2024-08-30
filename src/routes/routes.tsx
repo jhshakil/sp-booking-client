@@ -1,14 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import MainLayout from "../components/layout/MainLayout";
-import { Login } from "@/components/Login";
-import { Registration } from "@/components/Registration";
 import ProtectedRoute from "@/components/layout/ProtectedRoute";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { routeGenerator } from "@/lib/utils";
 import { adminPaths } from "./admin.routes";
 import { userPaths } from "./user.routes";
 import FacilityPage from "@/pages/FacilityPage";
+import Login from "@/components/Login";
+import Registration from "@/components/Registration";
 
 const routes = createBrowserRouter([
   {

@@ -52,7 +52,7 @@ const FormSchema = z
     path: ["confirm_password"],
   });
 
-export function Registration() {
+export default function Registration() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 

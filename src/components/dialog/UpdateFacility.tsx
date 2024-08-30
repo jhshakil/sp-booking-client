@@ -42,7 +42,7 @@ const FormSchema = z.object({
   image: z.string().optional(),
 });
 
-export function UpdateFacility({ facility }: Props) {
+export default function UpdateFacility({ facility }: Props) {
   const [open, setOpen] = useState(false);
 
   const [updateFacility] = useUpdateFacilityMutation();

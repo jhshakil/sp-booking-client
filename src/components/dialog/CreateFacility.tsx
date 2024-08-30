@@ -37,7 +37,7 @@ const FormSchema = z.object({
   image: z.string().optional(),
 });
 
-export function CreateFacility() {
+export default function CreateFacility() {
   const [open, setOpen] = useState(false);
 
   const [createFacility] = useCreateFacilityMutation();

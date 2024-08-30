@@ -14,10 +14,10 @@ import {
 import { Trash } from "lucide-react";
 import { TFacility } from "@/types/facility.types";
 import { useState } from "react";
-import { CreateFacility } from "@/components/dialog/CreateFacility";
-import { UpdateFacility } from "@/components/dialog/UpdateFacility";
 import { Button } from "@/components/ui/button";
 import DeletePopup from "@/components/dialog/DeletePopup";
+import CreateFacility from "@/components/dialog/CreateFacility";
+import UpdateFacility from "@/components/dialog/UpdateFacility";
 
 export default function FacilityControl() {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);

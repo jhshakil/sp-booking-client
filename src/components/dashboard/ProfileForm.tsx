@@ -28,7 +28,7 @@ const FormSchema = z.object({
   address: z.string(),
 });
 
-export function ProfileForm({ user }: Props) {
+export default function ProfileForm({ user }: Props) {
   const [updateUser] = useUpdateUserMutation();
 
   const form = useForm<z.infer<typeof FormSchema>>({
