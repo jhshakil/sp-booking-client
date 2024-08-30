@@ -10,8 +10,11 @@ const productApi = baseApi.injectEndpoints({
           if (data.searchTerm) {
             params.append("searchTerm", data.searchTerm);
           }
-          if (data.category) {
-            params.append("category", data.category);
+          if (data.getterThan) {
+            params.append("getterThan", data.getterThan);
+          }
+          if (data.lessThan) {
+            params.append("lessThan", data.lessThan);
           }
           if (data.sort) {
             params.append("sort", data.sort);
