@@ -37,14 +37,14 @@ const bookingApi = baseApi.injectEndpoints({
     //   }),
     //   providesTags: ["product"],
     // }),
-    // createFacility: builder.mutation({
-    //   query: (data) => ({
-    //     url: "/facility",
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    //   invalidatesTags: ["facility"],
-    // }),
+    createBooking: builder.mutation({
+      query: (data) => ({
+        url: "/bookings",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["booking"],
+    }),
     checkAvailability: builder.mutation({
       query: (data) => ({
         url: "/check-availability",
@@ -70,4 +70,5 @@ const bookingApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCheckAvailabilityMutation } = bookingApi;
+export const { useCheckAvailabilityMutation, useCreateBookingMutation } =
+  bookingApi;

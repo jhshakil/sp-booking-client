@@ -1,4 +1,5 @@
 import CheckBookingSlot from "@/components/dashboard/CheckBookingSlot";
+import CreateBookingForm from "@/components/dashboard/CreateBookingForm";
 import { Badge } from "@/components/ui/badge";
 import { TSlot } from "@/types/booking.types";
 import { useState } from "react";
@@ -24,7 +25,9 @@ const CreateBooking = () => {
             ))}
           </div>
         </div>
-        <div className="p-4 border border-border rounded-lg">create</div>
+        <div className="p-4 border border-border rounded-lg">
+          <CreateBookingForm />
+        </div>
       </div>
     </section>
   );

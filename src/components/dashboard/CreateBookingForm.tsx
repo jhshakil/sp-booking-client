@@ -6,61 +6,215 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "../ui/calendar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { useGetFacilitiesQuery } from "@/redux/features/facility/facilityApi";
+import { TFacility } from "@/types/facility.types";
+import { Input } from "../ui/input";
+import { useCreateBookingMutation } from "@/redux/features/booking/bookingApi";
 
-const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
+const timeStringSchema = z.string().refine(
+  (time) => {
+    const regex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+    return regex.test(time);
+  },
+  {
+    message: 'Invalid time format, expected "HH:MM" in 24 hours format',
+  }
+);
 
-export default function CreateBookingForm() {
+const FormSchema = z
+  .object({
+    facility: z.string(),
+    date: z.date(),
+    startTime: timeStringSchema,
+    endTime: timeStringSchema,
+  })
+  .refine(
+    (body) => {
+      const start = new Date(`1970-01-01T${body.startTime}:00`);
+      const end = new Date(`1970-01-01T${body.endTime}:00`);
+
+      return end > start;
+    },
+    {
+      message: "Start time should be before End time",
+    }
+  );
+
+const CreateBookingForm = () => {
+  const { data: facilityData, isLoading } = useGetFacilitiesQuery(undefined);
+  const [createBooking] = useCreateBookingMutation();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: "",
+      facility: "",
+      startTime: "",
+      endTime: "",
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    const formData = {
+      date: format(data.date, "yyyy-MM-dd"),
+      facility: data.facility,
+      startTime: data.startTime,
+      endTime: data.endTime,
+    };
+    const result = await createBooking(formData);
+    console.log(result);
+    if (result?.data?.success) {
+      form.reset({
+        facility: "",
+        startTime: "",
+        endTime: "",
+      });
+    }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="gap-6 grid grid-cols-2">
+          <FormField
+            control={form.control}
+            name="facility"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Facility</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue
+                        placeholder={
+                          isLoading ? "Loading.." : "Select a Facility"
+                        }
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {facilityData?.data && facilityData?.data.length ? (
+                      facilityData.data.map((facility: TFacility) => (
+                        <SelectItem value={facility._id} key={facility._id}>
+                          {facility.name}
+                        </SelectItem>
+                      ))
+                    ) : (
+                      <SelectItem value="none">No Facility Found</SelectItem>
+                    )}
+                  </SelectContent>
+                </Select>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="date"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel className="leading-snug	">Date</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-[240px] pl-3 text-left font-normal",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      disabled={(date) =>
+                        date > new Date() || date < new Date("1900-01-01")
+                      }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="gap-6 grid grid-cols-2 mt-5">
+          <FormField
+            control={form.control}
+            name="startTime"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Start Time (in 24 hours format)</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="HH:MM"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="endTime"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>End Time (in 24 hours format)</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="HH:MM"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="mt-6">
+          <Button type="submit">Checkout for Payment</Button>
+        </div>
       </form>
     </Form>
   );
-}
+};
+
+export default CreateBookingForm;

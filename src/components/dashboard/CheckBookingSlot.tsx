@@ -54,7 +54,6 @@ const CheckBookingSlot = ({ slotResult }: Props) => {
       facility: data.facility,
     };
     const result = await checkAvailability(formData);
-    console.log(result);
     if (result?.data?.data) slotResult(result.data.data);
   }
 
