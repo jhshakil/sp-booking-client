@@ -68,6 +68,13 @@ export function CreateFacility() {
     const res = await createFacility(data);
 
     if (res?.data) {
+      form.reset({
+        name: "",
+        description: "",
+        pricePerHour: 0,
+        location: "",
+        image: "",
+      });
       setOpen(false);
     }
   }

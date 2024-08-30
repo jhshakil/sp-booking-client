@@ -22,17 +22,11 @@ import DeletePopup from "../dialog/DeletePopup";
 export default function FacilityControl() {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedFacility, setSelectedFacility] = useState<TFacility>();
-  const {
-    data: facilityData,
-    isLoading,
-    error,
-  } = useGetFacilitiesQuery(undefined);
+  const { data: facilityData, isLoading } = useGetFacilitiesQuery(undefined);
 
   const [deleteFacility] = useDeleteFacilityMutation();
 
   if (isLoading) return <p>Loading ...</p>;
-
-  if (error) return <p>Something went wrong</p>;
 
   const deleteProductData = () => {
     deleteFacility(selectedFacility);
@@ -61,7 +55,11 @@ export default function FacilityControl() {
             {facilityData?.data?.map((facility: TFacility) => (
               <TableRow key={facility._id}>
                 <TableCell className="font-medium">{facility.name}</TableCell>
-                <TableCell>{facility.description}</TableCell>
+                <TableCell>
+                  <p className="max-w-[300px] line-clamp-3 overflow-hidden">
+                    {facility.description}
+                  </p>
+                </TableCell>
                 <TableCell>
                   <img
                     width={50}

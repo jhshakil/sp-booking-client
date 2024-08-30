@@ -3,6 +3,33 @@ import { RootState, store } from "@/redux/store";
 
 const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    getUsers: builder.query({
+      query: (data) => {
+        const params = new URLSearchParams();
+
+        if (data) {
+          if (data.searchTerm) {
+            params.append("searchTerm", data.searchTerm);
+          }
+          if (data.category) {
+            params.append("category", data.category);
+          }
+          if (data.sort) {
+            params.append("sort", data.sort);
+          }
+          if (data.limit) {
+            params.append("limit", data.limit);
+          }
+        }
+
+        return {
+          url: "/auth/user",
+          method: "GET",
+          params: params,
+        };
+      },
+      providesTags: ["user"],
+    }),
     getUser: builder.query({
       query: () => {
         const user = (store.getState() as RootState).auth.user;
@@ -27,4 +54,5 @@ const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetUserQuery, useUpdateUserMutation } = authApi;
+export const { useGetUsersQuery, useGetUserQuery, useUpdateUserMutation } =
+  authApi;

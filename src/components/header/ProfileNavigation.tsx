@@ -11,7 +11,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Link } from "react-router-dom";
 import { CircleUserRound } from "lucide-react";
 import { useAppDispatch } from "@/redux/hooks";
-import { logout, TUser } from "@/redux/features/auth/authSlice";
+import { logout } from "@/redux/features/auth/authSlice";
+import { TUser } from "@/types/user.types";
 
 type Props = {
   user: TUser;
