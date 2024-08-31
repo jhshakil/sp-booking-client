@@ -9,6 +9,8 @@ import { userPaths } from "./user.routes";
 import FacilityPage from "@/pages/FacilityPage";
 import Login from "@/components/Login";
 import Registration from "@/components/Registration";
+import AboutPage from "@/pages/AboutPage";
+import ContactPage from "@/pages/ContactPage";
 
 const routes = createBrowserRouter([
   {
@@ -22,6 +24,14 @@ const routes = createBrowserRouter([
       {
         path: "/facility",
         element: <FacilityPage />,
+      },
+      {
+        path: "/about",
+        element: <AboutPage />,
+      },
+      {
+        path: "/contact",
+        element: <ContactPage />,
       },
 
       {
