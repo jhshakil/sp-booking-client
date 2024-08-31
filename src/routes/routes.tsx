@@ -11,6 +11,7 @@ import Login from "@/components/Login";
 import Registration from "@/components/Registration";
 import AboutPage from "@/pages/AboutPage";
 import ContactPage from "@/pages/ContactPage";
+import FacilityDetails from "@/pages/FacilityDetails";
 
 const routes = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const routes = createBrowserRouter([
       {
         path: "/facility",
         element: <FacilityPage />,
+      },
+      {
+        path: "/facility/:id",
+        element: <FacilityDetails />,
       },
       {
         path: "/about",

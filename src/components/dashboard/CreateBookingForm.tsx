@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { cn } from "@/lib/utils";
+import { cn, Tomorrow } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../ui/calendar";
@@ -28,6 +28,10 @@ import { TFacility } from "@/types/facility.types";
 import { Input } from "../ui/input";
 import { useCreateBookingMutation } from "@/redux/features/booking/bookingApi";
 
+type Props = {
+  facilityParam?: string;
+};
+
 const timeStringSchema = z.string().refine(
   (time) => {
     const regex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
@@ -41,7 +45,11 @@ const timeStringSchema = z.string().refine(
 const FormSchema = z
   .object({
     facility: z.string(),
-    date: z.date(),
+    date: z.date({
+      errorMap: () => ({
+        message: "Please Select Date",
+      }),
+    }),
     startTime: timeStringSchema,
     endTime: timeStringSchema,
   })
@@ -57,14 +65,22 @@ const FormSchema = z
     }
   );
 
-const CreateBookingForm = () => {
+const CreateBookingForm = ({ facilityParam }: Props) => {
   const { data: facilityData, isLoading } = useGetFacilitiesQuery(undefined);
   const [createBooking] = useCreateBookingMutation();
 
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+
     defaultValues: {
-      facility: "",
+      facility: facilityParam ?? "",
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      date: Tomorrow(),
       startTime: "",
       endTime: "",
     },
@@ -157,6 +173,7 @@ const CreateBookingForm = () => {
                     <Calendar
                       mode="single"
                       selected={field.value}
+                      defaultMonth={field.value}
                       onSelect={field.onChange}
                       disabled={(date) =>
                         date < new Date() || date > new Date("2030-01-01")

@@ -3,9 +3,13 @@ import CreateBookingForm from "@/components/dashboard/CreateBookingForm";
 import { Badge } from "@/components/ui/badge";
 import { TSlot } from "@/types/booking.types";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const CreateBooking = () => {
   const [availableSlot, setAvailableSlot] = useState<TSlot[]>();
+  const [searchParams] = useSearchParams();
+  const facilityParam = searchParams.get("facility");
+
   return (
     <section>
       <div className="px-4 py-7 bg-secondary rounded-md">
@@ -15,7 +19,10 @@ const CreateBooking = () => {
         <div className="p-4 border border-border rounded-lg">
           <h3 className="text-lg font-medium">Check Available Slot</h3>
           <div className="mt-6">
-            <CheckBookingSlot slotResult={setAvailableSlot} />
+            <CheckBookingSlot
+              slotResult={setAvailableSlot}
+              facilityParam={facilityParam as string}
+            />
           </div>
           <div className="mt-6 flex gap-4">
             {availableSlot?.map((item, i) => (
@@ -26,7 +33,7 @@ const CreateBooking = () => {
           </div>
         </div>
         <div className="p-4 border border-border rounded-lg">
-          <CreateBookingForm />
+          <CreateBookingForm facilityParam={facilityParam as string} />
         </div>
       </div>
     </section>

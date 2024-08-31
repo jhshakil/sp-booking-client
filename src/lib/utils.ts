@@ -20,3 +20,11 @@ export const routeGenerator = (items: TUserPath[]) => {
 
   return routes;
 };
+
+export const Tomorrow = () => {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+
+  return tomorrow.toDateString();
+};

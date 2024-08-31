@@ -1,5 +1,7 @@
 import { TFacility } from "@/types/facility.types";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
+import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 type Props = {
   facility: TFacility;
@@ -16,7 +18,9 @@ const FacilityCard = ({ facility }: Props) => {
         />
         <div className="my-5 px-5">
           <h3 className="text-[30px] font-medium">{facility.name}</h3>
-          <p className="text-sm">{facility.description}</p>
+          <p className="text-sm line-clamp-5 overflow-hidden">
+            {facility.description}
+          </p>
         </div>
       </div>
       <div className="px-5">
@@ -26,7 +30,12 @@ const FacilityCard = ({ facility }: Props) => {
           </p>
         </div>
         <div className="flex justify-between items-center">
-          <Button variant="outline">See Details</Button>
+          <Link
+            className={cn(buttonVariants({ variant: "outline" }))}
+            to={`/facility/${facility._id}`}
+          >
+            See Details
+          </Link>
           <Button>Book Now</Button>
         </div>
       </div>
