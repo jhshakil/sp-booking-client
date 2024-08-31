@@ -7,27 +7,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Trash } from "lucide-react";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import DeletePopup from "@/components/dialog/DeletePopup";
 import {
-  useDeleteBookingMutation,
-  useGetUserBookingsQuery,
+  useConfirmBookingMutation,
+  useGetAdminBookingsQuery,
 } from "@/redux/features/booking/bookingApi";
 import { TBooking } from "@/types/booking.types";
 
-export default function ALlBooking() {
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const [selectedBooking, setSelectedBooking] = useState<TBooking>();
-  const { data: bookingData, isLoading } = useGetUserBookingsQuery(undefined);
+export default function ALlBookingAdmin() {
+  const { data: bookingData, isLoading } = useGetAdminBookingsQuery(undefined);
 
-  const [deleteBooking] = useDeleteBookingMutation();
+  const [confirmBooking] = useConfirmBookingMutation();
 
   if (isLoading) return <p>Loading ...</p>;
 
-  const deleteProductData = () => {
-    deleteBooking(selectedBooking);
+  const confirm = (data: TBooking) => {
+    confirmBooking(data);
   };
 
   return (
@@ -47,7 +42,7 @@ export default function ALlBooking() {
               <TableHead className="font-bold">Facility Name</TableHead>
               <TableHead className="font-bold">Booking Status</TableHead>
               <TableHead className="font-bold">Payment Status</TableHead>
-              <TableHead className="font-bold">Cancel Booking</TableHead>
+              <TableHead className="font-bold">Confirm Booking</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -66,30 +61,16 @@ export default function ALlBooking() {
                 <TableCell>{booking.isPayment ? "Paid" : "Unpaid"}</TableCell>
                 <TableCell>
                   <Button
-                    variant="outline"
-                    size="icon"
-                    className="border-none hover:bg-background relative"
-                    onClick={() => {
-                      setSelectedBooking(booking);
-                      setOpenDeleteDialog(true);
-                    }}
+                    disabled={booking.isBooked === "confirmed"}
+                    onClick={() => confirm(booking)}
                   >
-                    <Trash className="h-6 w-6" />
+                    Confirm
                   </Button>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-        {selectedBooking && (
-          <>
-            <DeletePopup
-              open={openDeleteDialog}
-              closeDialog={() => setOpenDeleteDialog(false)}
-              submitData={() => deleteProductData()}
-            />
-          </>
-        )}
       </div>
     </div>
   );

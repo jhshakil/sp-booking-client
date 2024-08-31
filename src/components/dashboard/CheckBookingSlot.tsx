@@ -34,7 +34,7 @@ type Props = {
 };
 
 const FormSchema = z.object({
-  facility: z.string(),
+  facility: z.string().min(1, "Please select facility"),
   date: z.date({
     errorMap: () => ({
       message: "Please Select Date",

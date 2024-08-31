@@ -1,3 +1,4 @@
+import ALlBookingAdmin from "@/pages/AllBookingAdmin";
 import CreateAdmin from "@/pages/CreateAdmin";
 import Dashboard from "@/pages/Dashboard";
 import FacilityControl from "@/pages/FacilityControl";
@@ -24,6 +25,11 @@ export const adminPaths = [
     name: "Facility",
     path: "facility",
     element: <FacilityControl />,
+  },
+  {
+    name: "Booking",
+    path: "booking",
+    element: <ALlBookingAdmin />,
   },
   {
     name: "Create Admin",

@@ -1,5 +1,5 @@
 import { TFacility } from "@/types/facility.types";
-import { Button, buttonVariants } from "../ui/button";
+import { buttonVariants } from "../ui/button";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -36,7 +36,12 @@ const FacilityCard = ({ facility }: Props) => {
           >
             See Details
           </Link>
-          <Button>Book Now</Button>
+          <Link
+            to={`/user/create-booking?facility=${facility._id}`}
+            className={cn(buttonVariants())}
+          >
+            Book Now
+          </Link>
         </div>
       </div>
     </div>

@@ -27,6 +27,7 @@ import { useGetFacilitiesQuery } from "@/redux/features/facility/facilityApi";
 import { TFacility } from "@/types/facility.types";
 import { Input } from "../ui/input";
 import { useCreateBookingMutation } from "@/redux/features/booking/bookingApi";
+import { toast } from "sonner";
 
 type Props = {
   facilityParam?: string;
@@ -44,7 +45,7 @@ const timeStringSchema = z.string().refine(
 
 const FormSchema = z
   .object({
-    facility: z.string(),
+    facility: z.string().min(1, "Please select facility"),
     date: z.date({
       errorMap: () => ({
         message: "Please Select Date",
@@ -87,20 +88,31 @@ const CreateBookingForm = ({ facilityParam }: Props) => {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const formData = {
-      date: format(data.date, "yyyy-MM-dd"),
-      facility: data.facility,
-      startTime: data.startTime,
-      endTime: data.endTime,
-    };
-    const result = await createBooking(formData);
-    if (result?.data?.data?.result) {
-      window.location.href = result.data.data.payment_url;
-      form.reset({
-        facility: "",
-        startTime: "",
-        endTime: "",
-      });
+    try {
+      const formData = {
+        date: format(data.date, "yyyy-MM-dd"),
+        facility: data.facility,
+        startTime: data.startTime,
+        endTime: data.endTime,
+      };
+      const result = await createBooking(formData);
+      if (result?.data?.data?.result) {
+        window.location.href = result.data.data.payment_url;
+        form.reset({
+          facility: "",
+          startTime: "",
+          endTime: "",
+        });
+      }
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (result?.error?.data?.err?.statusCode === 409) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        toast(result?.error?.data?.message);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 

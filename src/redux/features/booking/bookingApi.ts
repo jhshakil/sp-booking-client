@@ -3,34 +3,22 @@ import { RootState, store } from "@/redux/store";
 
 const bookingApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // getFacilities: builder.query({
-    //   query: (data) => {
-    //     const params = new URLSearchParams();
-    //     if (data) {
-    //       if (data.searchTerm) {
-    //         params.append("searchTerm", data.searchTerm);
-    //       }
-    //       if (data.getterThan) {
-    //         params.append("getterThan", data.getterThan);
-    //       }
-    //       if (data.lessThan) {
-    //         params.append("lessThan", data.lessThan);
-    //       }
-    //       if (data.sort) {
-    //         params.append("sort", data.sort);
-    //       }
-    //       if (data.limit) {
-    //         params.append("limit", data.limit);
-    //       }
-    //     }
-    //     return {
-    //       url: "/facility",
-    //       method: "GET",
-    //       params: params,
-    //     };
-    //   },
-    //   providesTags: ["facility"],
-    // }),
+    getAdminBookings: builder.query({
+      query: (data) => {
+        const params = new URLSearchParams();
+        if (data) {
+          if (data.limit) {
+            params.append("limit", data.limit);
+          }
+        }
+        return {
+          url: "/bookings",
+          method: "GET",
+          params: params,
+        };
+      },
+      providesTags: ["booking"],
+    }),
     getUserBookings: builder.query({
       query: () => {
         const user = (store.getState() as RootState).auth.user;
@@ -51,19 +39,17 @@ const bookingApi = baseApi.injectEndpoints({
     }),
     checkAvailability: builder.mutation({
       query: (data) => ({
-        url: "/check-availability",
+        url: `/check-availability?date=${data.date}&Facility=${data.facility}`,
         method: "POST",
-        body: data,
       }),
     }),
-    // updateFacility: builder.mutation({
-    //   query: (data) => ({
-    //     url: `/booking/${data._id}`,
-    //     method: "PATCH",
-    //     body: data,
-    //   }),
-    //   invalidatesTags: ["booking"],
-    // }),
+    confirmBooking: builder.mutation({
+      query: (data) => ({
+        url: `/bookings/confirm/${data._id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["booking"],
+    }),
     deleteBooking: builder.mutation({
       query: (data) => ({
         url: `/bookings/${data._id}`,
@@ -77,6 +63,8 @@ const bookingApi = baseApi.injectEndpoints({
 export const {
   useCheckAvailabilityMutation,
   useCreateBookingMutation,
+  useGetAdminBookingsQuery,
   useGetUserBookingsQuery,
+  useConfirmBookingMutation,
   useDeleteBookingMutation,
 } = bookingApi;
