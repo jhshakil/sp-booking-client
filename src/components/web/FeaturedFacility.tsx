@@ -6,9 +6,15 @@ import { cn } from "@/lib/utils";
 import FacilityCard from "./FacilityCard";
 
 const FeaturedFacility = () => {
-  const { data: facilityData, isLoading } = useGetFacilitiesQuery({ limit: 4 });
+  const {
+    data: facilityData,
+    isLoading,
+    error,
+  } = useGetFacilitiesQuery({ limit: 4 });
 
   if (isLoading) return <p>Loading ...</p>;
+
+  if (error) return;
 
   return (
     <section className="container py-11">

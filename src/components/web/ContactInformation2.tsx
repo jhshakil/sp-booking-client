@@ -1,16 +1,8 @@
-const ContactInformation = () => {
+const ContactInformation2 = () => {
   return (
-    <section className="container py-11">
-      <div className="mb-12  lg:mb-0">
-        <div className="max-w-[570px] mx-auto text-center">
-          <h2 className="mb-6 text-[40px] font-medium">Get In Touch With Us</h2>
-          <p className="font-light text-gray-500 lg:mb-16 sm:text-xl mb-9">
-            For any inquiries or assistance, please feel free to reach out to
-            us. Our team is here to help with bookings, technical support, or
-            any questions you may have about our platform.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <section>
+      <div className="mb-12 lg:mb-0">
+        <div className="flex flex-col gap-6">
           <div className="mb-8 flex w-full max-w-[370px]">
             <div className="mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded bg-primary/5 text-primary sm:h-[70px] sm:max-w-[70px]">
               <svg
@@ -98,4 +90,4 @@ const ContactInformation = () => {
   );
 };
 
-export default ContactInformation;
+export default ContactInformation2;
