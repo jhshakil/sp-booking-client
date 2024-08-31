@@ -78,8 +78,8 @@ const CreateBookingForm = () => {
       endTime: data.endTime,
     };
     const result = await createBooking(formData);
-    console.log(result);
-    if (result?.data?.success) {
+    if (result?.data?.data?.result) {
+      window.location.href = result.data.data.payment_url;
       form.reset({
         facility: "",
         startTime: "",
@@ -159,7 +159,7 @@ const CreateBookingForm = () => {
                       selected={field.value}
                       onSelect={field.onChange}
                       disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
+                        date < new Date() || date > new Date("2030-01-01")
                       }
                       initialFocus
                     />
