@@ -1,6 +1,5 @@
 import AllBooking from "@/pages/AllBooking";
 import CreateBooking from "@/pages/CreateBooking";
-import Dashboard from "@/pages/Dashboard";
 import Profile from "@/pages/Profile";
 
 export const userPaths = [
@@ -9,11 +8,7 @@ export const userPaths = [
     path: "profile",
     element: <Profile />,
   },
-  {
-    name: "Dashboard",
-    path: "dashboard",
-    element: <Dashboard />,
-  },
+
   {
     name: "Booking Slot",
     path: "create-booking",
