@@ -22,7 +22,7 @@ const DeletePopup = ({ open, closeDialog, submitData }: Props) => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="text-center">
-            Are you sure, you want to delete ?
+            Are you sure, you want to do this ?
           </DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>

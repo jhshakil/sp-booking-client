@@ -1,4 +1,5 @@
 import { baseApi } from "@/redux/api/baseApi";
+import { RootState, store } from "@/redux/store";
 
 const bookingApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -30,13 +31,16 @@ const bookingApi = baseApi.injectEndpoints({
     //   },
     //   providesTags: ["facility"],
     // }),
-    // getProduct: builder.query({
-    //   query: (data) => ({
-    //     url: `/product/${data._id}`,
-    //     method: "GET",
-    //   }),
-    //   providesTags: ["product"],
-    // }),
+    getUserBookings: builder.query({
+      query: () => {
+        const user = (store.getState() as RootState).auth.user;
+        return {
+          url: `/bookings/user/${user?.email}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["booking"],
+    }),
     createBooking: builder.mutation({
       query: (data) => ({
         url: "/bookings",
@@ -54,21 +58,25 @@ const bookingApi = baseApi.injectEndpoints({
     }),
     // updateFacility: builder.mutation({
     //   query: (data) => ({
-    //     url: `/facility/${data._id}`,
+    //     url: `/booking/${data._id}`,
     //     method: "PATCH",
     //     body: data,
     //   }),
-    //   invalidatesTags: ["facility"],
+    //   invalidatesTags: ["booking"],
     // }),
-    // deleteFacility: builder.mutation({
-    //   query: (data) => ({
-    //     url: `/facility/${data._id}`,
-    //     method: "DELETE",
-    //   }),
-    //   invalidatesTags: ["facility"],
-    // }),
+    deleteBooking: builder.mutation({
+      query: (data) => ({
+        url: `/bookings/${data._id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["booking"],
+    }),
   }),
 });
 
-export const { useCheckAvailabilityMutation, useCreateBookingMutation } =
-  bookingApi;
+export const {
+  useCheckAvailabilityMutation,
+  useCreateBookingMutation,
+  useGetUserBookingsQuery,
+  useDeleteBookingMutation,
+} = bookingApi;

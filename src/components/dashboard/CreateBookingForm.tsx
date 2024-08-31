@@ -210,7 +210,7 @@ const CreateBookingForm = () => {
           />
         </div>
         <div className="mt-6">
-          <Button type="submit">Checkout for Payment</Button>
+          <Button type="submit">Proceed to Pay</Button>
         </div>
       </form>
     </Form>
