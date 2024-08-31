@@ -19,6 +19,11 @@ const ProtectedRoute = ({ children, role = "user" }: TProtectedRoute) => {
     user = verifyToken(token);
   }
 
+  const mainUser = JSON.parse(JSON.stringify(user));
+  console.log(mainUser);
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   if (role !== undefined && role !== user?.role) {
     dispatch(logout());
     return <Navigate to="/login" replace={true} />;
