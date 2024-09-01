@@ -28,6 +28,7 @@ import { imageUploadDB } from "@/lib/firebaseConfig";
 import { v4 } from "uuid";
 import { useState } from "react";
 import { useCreateFacilityMutation } from "@/redux/features/facility/facilityApi";
+import { toast } from "sonner";
 
 const FormSchema = z.object({
   name: z.string(),
@@ -68,6 +69,7 @@ export default function CreateFacility() {
     const res = await createFacility(data);
 
     if (res?.data) {
+      toast("Facility create successfully");
       form.reset({
         name: "",
         description: "",
