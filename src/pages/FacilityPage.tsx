@@ -3,12 +3,23 @@ import { TFacility } from "@/types/facility.types";
 import FacilityCard from "@/components/web/FacilityCard";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 const FacilityPage = () => {
   const [timeOutValue, setTimeOutValue] = useState<NodeJS.Timeout>();
   const [searchValue, setSearchValue] = useState<string>("");
   const [getterThan, setGetterThan] = useState<string>("");
   const [lessThan, setLessThan] = useState<string>("");
+  const [startIndex, setStartIndex] = useState(0);
+  const rowsPerPage = 2;
+  const [endIndex, setEndIndex] = useState(rowsPerPage);
+
   const { data: facilityData, isLoading } = useGetFacilitiesQuery({
     searchTerm: searchValue,
     getterThan,
@@ -90,9 +101,48 @@ const FacilityPage = () => {
         </div>
       </div>
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {facilityData?.data?.map((facility: TFacility) => (
-          <FacilityCard key={`facility-${facility._id}`} facility={facility} />
-        ))}
+        {facilityData?.data
+          ?.slice(startIndex, endIndex)
+          .map((facility: TFacility) => (
+            <FacilityCard
+              key={`facility-${facility._id}`}
+              facility={facility}
+            />
+          ))}
+      </div>
+
+      <div className="mt-6">
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                className={
+                  startIndex === 0
+                    ? "pointer-events-none opacity-50"
+                    : undefined
+                }
+                onClick={() => {
+                  setStartIndex(startIndex - rowsPerPage);
+                  setEndIndex(endIndex - rowsPerPage);
+                }}
+              />
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationNext
+                className={
+                  endIndex === facilityData?.data?.length
+                    ? "pointer-events-none opacity-50"
+                    : undefined
+                }
+                onClick={() => {
+                  setStartIndex(startIndex + rowsPerPage);
+                  setEndIndex(endIndex + rowsPerPage);
+                }}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     </section>
   );
