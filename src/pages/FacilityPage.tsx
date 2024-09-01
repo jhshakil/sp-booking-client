@@ -17,7 +17,7 @@ const FacilityPage = () => {
   const [getterThan, setGetterThan] = useState<string>("");
   const [lessThan, setLessThan] = useState<string>("");
   const [startIndex, setStartIndex] = useState(0);
-  const rowsPerPage = 2;
+  const rowsPerPage = 8;
   const [endIndex, setEndIndex] = useState(rowsPerPage);
 
   const { data: facilityData, isLoading } = useGetFacilitiesQuery({
@@ -120,39 +120,43 @@ const FacilityPage = () => {
           ))}
       </div>
 
-      <div className="mt-6">
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                className={
-                  startIndex === 0
-                    ? "pointer-events-none opacity-50"
-                    : undefined
-                }
-                onClick={() => {
-                  setStartIndex(startIndex - rowsPerPage);
-                  setEndIndex(endIndex - rowsPerPage);
-                }}
-              />
-            </PaginationItem>
+      {facilityData?.data.length > rowsPerPage ? (
+        <div className="mt-6">
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  className={
+                    startIndex === 0
+                      ? "pointer-events-none opacity-50"
+                      : undefined
+                  }
+                  onClick={() => {
+                    setStartIndex(startIndex - rowsPerPage);
+                    setEndIndex(endIndex - rowsPerPage);
+                  }}
+                />
+              </PaginationItem>
 
-            <PaginationItem>
-              <PaginationNext
-                className={
-                  endIndex === facilityData?.data?.length
-                    ? "pointer-events-none opacity-50"
-                    : undefined
-                }
-                onClick={() => {
-                  setStartIndex(startIndex + rowsPerPage);
-                  setEndIndex(endIndex + rowsPerPage);
-                }}
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      </div>
+              <PaginationItem>
+                <PaginationNext
+                  className={
+                    endIndex === facilityData?.data?.length
+                      ? "pointer-events-none opacity-50"
+                      : undefined
+                  }
+                  onClick={() => {
+                    setStartIndex(startIndex + rowsPerPage);
+                    setEndIndex(endIndex + rowsPerPage);
+                  }}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
+      ) : (
+        ""
+      )}
     </section>
   );
 };
