@@ -66,4 +66,8 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .rfm-initial-child-container {
+    @apply mr-[150px];
+  }
 }
