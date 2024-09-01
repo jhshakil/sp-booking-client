@@ -39,7 +39,7 @@ const bookingApi = baseApi.injectEndpoints({
     }),
     checkAvailability: builder.mutation({
       query: (data) => ({
-        url: `/check-availability?date=${data.date}&Facility=${data.facility}`,
+        url: `/check-availability?date=${data.date}&facility=${data.facility}`,
         method: "POST",
       }),
     }),

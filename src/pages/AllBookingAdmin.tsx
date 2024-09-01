@@ -13,6 +13,7 @@ import {
   useGetAdminBookingsQuery,
 } from "@/redux/features/booking/bookingApi";
 import { TBooking } from "@/types/booking.types";
+import { toast } from "sonner";
 
 export default function ALlBookingAdmin() {
   const { data: bookingData, isLoading } = useGetAdminBookingsQuery(undefined);
@@ -21,8 +22,11 @@ export default function ALlBookingAdmin() {
 
   if (isLoading) return <p>Loading ...</p>;
 
-  const confirm = (data: TBooking) => {
-    confirmBooking(data);
+  const confirm = async (data: TBooking) => {
+    const res = await confirmBooking(data);
+    if (res?.data?.success) {
+      toast("Confirm Successfully");
+    }
   };
 
   return (

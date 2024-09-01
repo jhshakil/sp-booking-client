@@ -14,6 +14,10 @@ const ProtectedRoute = ({ children, role = "user" }: TProtectedRoute) => {
   const token = useAppSelector(useCurrentToken);
   const dispatch = useAppDispatch();
 
+  if (!token) {
+    return <Navigate to="/login" replace={true} />;
+  }
+
   let user;
 
   if (token) {
@@ -25,9 +29,6 @@ const ProtectedRoute = ({ children, role = "user" }: TProtectedRoute) => {
   if (role !== undefined && role !== user?.role) {
     dispatch(logout());
     return <ForbiddenError />;
-  }
-  if (!token) {
-    return <Navigate to="/login" replace={true} />;
   }
 
   return children;

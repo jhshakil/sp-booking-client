@@ -26,7 +26,9 @@ const FacilityPage = () => {
     lessThan,
   });
 
-  if (isLoading) return <p>Loading ...</p>;
+  if (isLoading) {
+    return <p className="container">Loading ...</p>;
+  }
 
   const sampleData = async (
     inputData: string,
@@ -42,7 +44,8 @@ const FacilityPage = () => {
         setValue("");
       }
     }, 500);
-
+    setStartIndex(0);
+    setEndIndex(rowsPerPage);
     setTimeOutValue(timeValue);
   };
 
@@ -83,20 +86,26 @@ const FacilityPage = () => {
         <div>
           <p className="text-lg font-medium">Filter By Price</p>
           <div className="flex gap-4 mt-2">
-            <Input
-              type="text"
-              value={getterThan}
-              className="max-w-[100px]"
-              placeholder="Min Value"
-              onChange={(e) => setGetterThan(e.target.value)}
-            />
-            <Input
-              type="text"
-              value={lessThan}
-              className="max-w-[100px]"
-              placeholder="Max Value"
-              onChange={(e) => setLessThan(e.target.value)}
-            />
+            <div>
+              <p>Min Value</p>
+              <Input
+                type="text"
+                value={getterThan}
+                className="max-w-[100px] mt-2"
+                placeholder="Min Value"
+                onChange={(e) => setGetterThan(e.target.value)}
+              />
+            </div>
+            <div>
+              <p>Max Value</p>
+              <Input
+                type="text"
+                value={lessThan}
+                className="max-w-[100px] mt-2"
+                placeholder="Max Value"
+                onChange={(e) => setLessThan(e.target.value)}
+              />
+            </div>
           </div>
         </div>
       </div>

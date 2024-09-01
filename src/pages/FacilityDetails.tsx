@@ -13,7 +13,7 @@ const FacilityDetails = () => {
     _id: facilityId,
   });
 
-  if (isLoading) return <p>Loading ...</p>;
+  if (isLoading) return <p className="container">Loading ...</p>;
 
   if (error) return <p className="container">No Data found</p>;
 

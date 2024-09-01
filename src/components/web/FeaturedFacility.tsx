@@ -12,7 +12,7 @@ const FeaturedFacility = () => {
     error,
   } = useGetFacilitiesQuery({ limit: 4 });
 
-  if (isLoading) return <p>Loading ...</p>;
+  if (isLoading) return <p className="container">Loading ...</p>;
 
   if (error) return;
 
