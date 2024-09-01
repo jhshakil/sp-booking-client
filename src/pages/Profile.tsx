@@ -14,7 +14,7 @@ const Profile = () => {
   return (
     <div className="flex flex-col gap-5">
       <div className="px-4 py-7 bg-secondary rounded-md">
-        <h2 className="text-center text-[60px] font-medium">
+        <h2 className="text-center text-[30px] md:text-[60px] font-medium">
           Welcome back, {userData.name}
         </h2>
       </div>

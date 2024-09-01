@@ -45,6 +45,23 @@ const ProfileNavigation = ({ user }: Props) => {
           <DropdownMenuItem asChild>
             <Link to={`/${user.role}/all-booking`}>Bookings</Link>
           </DropdownMenuItem>
+          {user.role === "admin" ? (
+            <>
+              <DropdownMenuItem asChild>
+                <Link to={`/${user.role}/facility`}>Facility</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to={`/${user.role}/user`}>User</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to={`/${user.role}/create-admin`}>Create Admin</Link>
+              </DropdownMenuItem>
+            </>
+          ) : (
+            <DropdownMenuItem asChild>
+              <Link to={`/${user.role}/create-booking`}>Create Booking</Link>
+            </DropdownMenuItem>
+          )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>

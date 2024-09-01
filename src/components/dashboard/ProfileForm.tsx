@@ -48,7 +48,7 @@ export default function ProfileForm({ user }: Props) {
 
   return (
     <div className="flex justify-center items-center ">
-      <div className="w-[50vw]">
+      <div className="w-full md:w-[50vw]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
             <FormField

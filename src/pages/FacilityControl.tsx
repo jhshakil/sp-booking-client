@@ -33,7 +33,7 @@ export default function FacilityControl() {
   };
 
   return (
-    <div className="px-8 py-12">
+    <div className="px-2 md:px-8 py-12">
       <div className="flex justify-between border-b border-border pb-4">
         <h2 className="text-3xl font-bold">Facility List</h2>
         <CreateFacility />
