@@ -3,21 +3,22 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <div className="border-t border-border">
-      <div className="container px-6 md:px-12 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
-        <div className="mt-7 md:col-span-2">
+      <div className="container px-6 md:px-12 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="mt-7">
           <p>
-            SP sports facility is a dedicated space designed for various
-            athletic activities, recreational sports, and fitness programs.
-            These facilities can vary greatly in size, amenities, and the types
-            of sports they accommodate.
+            <span className="text-2xl font-bold">SP</span> sports facility is a
+            dedicated space designed for various athletic activities,
+            recreational sports, and fitness programs. These facilities can vary
+            greatly in size, amenities, and the types of sports they
+            accommodate.
           </p>
         </div>
-        <div>
+        {/* <div>
           <h3 className="text-2xl font-bold mb-5">My Account</h3>
           <p>
             <Link to="/profile">Profile</Link>
           </p>
-        </div>
+        </div> */}
         <div>
           <h3 className="text-2xl font-bold mb-5">Pages</h3>
           <p>

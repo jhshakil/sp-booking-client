@@ -18,7 +18,7 @@ const FacilityCard = ({ facility }: Props) => {
         />
         <div className="my-5 px-5">
           <h3 className="text-[30px] font-medium">{facility.name}</h3>
-          <p className="text-sm line-clamp-5 overflow-hidden">
+          <p className="text-sm line-clamp-3 overflow-hidden">
             {facility.description}
           </p>
         </div>

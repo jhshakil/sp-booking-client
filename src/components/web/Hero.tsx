@@ -1,4 +1,6 @@
-import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
+import { buttonVariants } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 const Hero = () => {
   return (
@@ -16,7 +18,13 @@ const Hero = () => {
           <p className="text-lg lg:text-2xl text-center mt-3">
             Discover amazing places at exclusive deals
           </p>
-          <Button className="mt-9 bg-orange-600 text-lg">Book Now</Button>
+          {/* <Button className="mt-9 bg-orange-600 text-lg">Book Now</Button> */}
+          <Link
+            to={`/user/create-booking`}
+            className={cn(buttonVariants(), "mt-9 bg-orange-600 text-lg")}
+          >
+            Book Now
+          </Link>
         </div>
       </div>
     </section>
