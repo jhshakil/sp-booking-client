@@ -1,4 +1,5 @@
 import { verifyToken } from "@/lib/verifyToken";
+import ForbiddenError from "@/pages/ForbiddenError";
 import { logout, useCurrentToken } from "@/redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { ReactNode } from "react";
@@ -23,7 +24,7 @@ const ProtectedRoute = ({ children, role = "user" }: TProtectedRoute) => {
   // @ts-ignore
   if (role !== undefined && role !== user?.role) {
     dispatch(logout());
-    return <Navigate to="/login" replace={true} />;
+    return <ForbiddenError />;
   }
   if (!token) {
     return <Navigate to="/login" replace={true} />;

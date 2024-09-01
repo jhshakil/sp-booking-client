@@ -12,6 +12,7 @@ import Registration from "@/components/Registration";
 import AboutPage from "@/pages/AboutPage";
 import ContactPage from "@/pages/ContactPage";
 import FacilityDetails from "@/pages/FacilityDetails";
+import ErrorPage from "@/pages/ErrorPage";
 
 const routes = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const routes = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: routeGenerator(adminPaths),
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);
 
