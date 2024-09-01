@@ -30,6 +30,9 @@ const FacilityPage = () => {
     return <p className="container">Loading ...</p>;
   }
 
+  console.log(facilityData?.data?.length);
+  console.log(endIndex);
+
   const sampleData = async (
     inputData: string,
     setValue: (data: string) => void
@@ -141,7 +144,7 @@ const FacilityPage = () => {
               <PaginationItem>
                 <PaginationNext
                   className={
-                    endIndex === facilityData?.data?.length
+                    endIndex >= facilityData?.data?.length
                       ? "pointer-events-none opacity-50"
                       : undefined
                   }
